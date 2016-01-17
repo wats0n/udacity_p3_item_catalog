@@ -31,11 +31,11 @@ and extra feature by export restaurant/menu data to JSON and XML style.
 
 ##Extra Feature
 
-A. JSON Endpoints
+1. JSON Endpoints
     * ALL Restaurants: http://localhost:5000/restaurant/JSON
     * ALL Menus in Restaurant: http://localhost:5000/restaurant/<restaurant_id>/menu/JSON
     * Specific Menu in Restaurant: http://localhost:5000/restaurant/<restaurant_id>/menu/<menuitem_id>/JSON
-B. XML Endpoints
+2. XML Endpoints
     * ALL Restaurants: http://localhost:5000/restaurant/XML
     * ALL Menus in Restaurant: http://localhost:5000/restaurant/<restaurant_id>/menu/XML
     * Specific Menu in Restaurant: http://localhost:5000/restaurant/<restaurant_id>/menu/<menuitem_id>/XML
@@ -43,4 +43,4 @@ B. XML Endpoints
 ## Creator(s)
 ------
 Watson Huang (wats0n)
-11/08, 2015
+01/18, 2016
