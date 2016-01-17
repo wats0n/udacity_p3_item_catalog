@@ -1,0 +1,133 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer> </script>
+</head>
+
+<!-- Google+ SignIn -->
+<body>
+<div id="glabel">
+<h3>SignIn by Google+</h3>
+</div>
+<div id="signinButton">
+    <span class="g-signin"
+        data-scope="openid email"
+        data-clientid="438205643288-52cccafm3j4v6mo0hr36ohc45sflpneh.apps.googleusercontent.com"
+        data-redirecturi="postmessage"
+        data-accesstype="offline"
+        data-cookiepolicy="single_host_origin"
+        data-callback="signInCallback"
+        data-pprovalprompt="force">
+    </span>
+</div>
+
+
+<script>
+function signInCallback(authResult)
+{
+    if(authResult['code'])
+    {
+        $('#signinButton').attr('style', 'display: none');
+        $('#fbsigninButton').attr('style', 'display: none');
+        $('#glabel').attr('style', 'display: none');
+        $('#flabel').attr('style', 'display: none');
+        $.ajax({
+            type: 'POST',
+            url: '/gconnect?state={{STATE}}',
+            processData: false,
+            contentType: 'application/octet-stream; charset=utf-8',
+            data: authResult['code'],
+            success: function(result) 
+            {
+                if(result)
+                {
+                    $('#result').html('Login Successful!</br>'+result+'</br>Redirecting...')
+                    setTimeout(function()
+                    {
+                        window.location.href = "/restaurant";
+                    }, 4000);   
+                }
+                else if(authResult['error'])
+                {
+                    console.log('Error: ' + authResult['error']);
+                    
+                }
+                else
+                {
+                    $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                }
+            }
+        });
+    }
+}
+</script>
+<!-- Google+ SignIn End-->
+
+<!--FACEBOOK SIGN IN -->
+<script>
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1719475814948768',
+    cookie     : true,  
+    xfbml      : true,
+    version    : 'v2.5'
+  });
+  };
+  
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  
+  function sendTokenToServer() {
+    $('#signinButton').attr('style', 'display: none');
+    $('#fbsigninButton').attr('style', 'display: none');
+    $('#glabel').attr('style', 'display: none');
+    $('#flabel').attr('style', 'display: none');
+    var access_token = FB.getAuthResponse()['accessToken'];
+    console.log(access_token)
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+     $.ajax({
+      type: 'POST',
+      url: '/fbconnect?state={{STATE}}',
+      processData: false,
+      data: access_token,
+      contentType: 'application/octet-stream; charset=utf-8',
+      success: function(result) {
+        // Handle or verify the server response if necessary.
+        if (result) {
+          $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+         setTimeout(function() {
+          window.location.href = "/restaurant";
+         }, 4000);
+          
+      } else {
+        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+         }
+      }
+      
+  });
+    });
+  }
+</script>
+<div id="flabel">
+<h3>SignIn by Facebook</h3>
+</div>
+<div id="fbsigninButton">
+<button> <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
+<a href='javascript:sendTokenToServer()'>Login with Facebook</a>
+</fb:login-button>
+</button>
+</div>
+<!--END FACEBOOK SIGN IN -->
+
+<div id="result"></div>
+</body>
+
+</html>
