@@ -33,12 +33,12 @@ and extra feature by export restaurant/menu data to JSON and XML style.
 
 1. JSON Endpoints
     * ALL Restaurants: http://localhost:5000/restaurant/JSON
-    * ALL Menus in Restaurant: http://localhost:5000/restaurant/<restaurant_id>/menu/JSON
-    * Specific Menu in Restaurant: http://localhost:5000/restaurant/<restaurant_id>/menu/<menuitem_id>/JSON
+    * ALL Menus in Restaurant: http://localhost:5000/restaurant/{restaurant_id}/menu/JSON
+    * Specific Menu in Restaurant: http://localhost:5000/restaurant/{restaurant_id}/menu/{menuitem_id}/JSON
 2. XML Endpoints
     * ALL Restaurants: http://localhost:5000/restaurant/XML
-    * ALL Menus in Restaurant: http://localhost:5000/restaurant/<restaurant_id>/menu/XML
-    * Specific Menu in Restaurant: http://localhost:5000/restaurant/<restaurant_id>/menu/<menuitem_id>/XML
+    * ALL Menus in Restaurant: http://localhost:5000/restaurant/{restaurant_id}/menu/XML
+    * Specific Menu in Restaurant: http://localhost:5000/restaurant/{restaurant_id}/menu/{menuitem_id}/XML
     
 ## Creator(s)
 ------
